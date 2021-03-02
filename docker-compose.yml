@@ -1,0 +1,66 @@
+# Lana Store Test backend [development]
+version: "3.7"
+
+services:
+
+  #---- Web service ----#
+  lana-store:
+    build:
+      context: .
+      target: lana-store-dev
+    image: lana-store-dev
+    env_file:
+     - .env
+    environment:
+      - TERM=xterm
+      - LC_ALL=en_US.UTF-8
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US.UTF-8
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    ports:
+      - "8000:8000"
+    networks:
+      - default-net
+
+
+  #---- Dev's toolbox ----#
+  flake8:
+    image: lana-store-dev:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+        read_only: true
+    entrypoint: flake8
+
+  black:
+    image: lana-store-dev:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+        read_only: true
+    entrypoint: black --config .black --check --diff .
+
+  format:
+    image: lana-store-dev:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    entrypoint: black --config .black .
+
+  mypy:
+    image: lana-store-dev:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+        read_only: true
+    entrypoint: mypy --show-error-codes --pretty lana_store
+
+networks:
+  default-net:
