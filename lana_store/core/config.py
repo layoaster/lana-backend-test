@@ -1,10 +1,11 @@
 """
 Application settings.
 """
-
-from typing import List, Union
+from typing import Dict, List, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, validator
+
+from lana_store.models.product import Product, ProductCodes
 
 
 class Settings(BaseSettings):
@@ -35,6 +36,16 @@ class Settings(BaseSettings):
         elif isinstance(value, (list, str)):
             return value
         raise ValueError(value)
+
+    #: Money decimal precision.
+    MONEY_DECIMALS: int = 2
+
+    #: Products data.
+    PRODUCT_TABLE: Dict[ProductCodes, Product] = {
+        "PEN": {"name": "Lana Pen", "price": 500},
+        "TSHIRT": {"name": "Lana T-Shirt", "price": 2000},
+        "MUG": {"name": "Lana Coffee Mug", "price": 750},
+    }
 
     class Config:
         case_sensitive = True
