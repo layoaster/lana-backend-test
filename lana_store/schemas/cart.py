@@ -31,3 +31,19 @@ class CartCreateOutput(CartBase):
     """
 
     pass
+
+
+class CartUpdateInput(BaseModel):
+    """
+    Input scheme of the cart update endpoint.
+    """
+
+    product: ProductCodes = Field(..., example="PEN")
+
+
+class CartUpdateOutput(CartBase):
+    """
+    Input scheme of the cart update endpoint.
+    """
+
+    pass

@@ -13,7 +13,7 @@ from lana_store.models.product import ProductCodes
 
 class Cart(BaseModel):
     """
-    Represents the Cart data
+    Representation of a shopping cart for the database.
     """
 
     #: UUIDv4 that uniquely identifies the Cart.
@@ -25,7 +25,10 @@ class Cart(BaseModel):
     def total(self) -> int:
         """
         Calculates the cart's `total` amount of money. Applies the correspondent
-        discounts over Pens and T-Shirts if applicable
+        promotional discounts over Pens and T-Shirts (if any).
+
+        :return: Total value of products in the cart after discounts with the
+            money-as-integer format.
         """
         p_counter = Counter(self.products)
 
