@@ -1,0 +1,16 @@
+[run]
+parallel = True
+branch = True
+concurrency = multiprocessing
+
+include =
+    lana_store/*
+
+omit =
+    */__init__.py
+    */tests/*
+    lana_store/main.py
+    lana_store/core/config.py
+
+[html]
+directory = test-results/htmlcov

@@ -19,3 +19,6 @@ docker-compose.yml
 
 # App settings
 .env
+
+# tests
+test-results

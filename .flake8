@@ -13,6 +13,7 @@ exclude =
     .git,
     */migrations/*,
     docs
+    test-results
 
 import-order-style = edited
 application-import-names = lana_store
