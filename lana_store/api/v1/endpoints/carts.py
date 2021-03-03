@@ -5,14 +5,8 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, Response, status
 
-from lana_store import schemas
+from lana_store import crud, schemas
 from lana_store.core.config import settings
-from lana_store.crud.cart import (
-    create_new_cart,
-    get_cart_by_id,
-    remove_cart,
-    update_cart_with_product,
-)
 
 
 router = APIRouter()
@@ -26,7 +20,7 @@ async def create_cart() -> Any:
 
     :return: New cart.
     """
-    return create_new_cart()
+    return crud.create_new_cart()
 
 
 @router.get(
@@ -43,7 +37,7 @@ async def get_cart(cart_id: str) -> Any:
     :raises HTTPException: Cart not found.
     :return: Correspondent cart.
     """
-    cart = get_cart_by_id(cart_id)
+    cart = crud.get_cart_by_id(cart_id)
     if not cart:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
 
@@ -68,7 +62,7 @@ async def partial_update_cart(cart_id: str, cart_in: schemas.CartUpdateInput) ->
     :raises HTTPException: Cart not found.
     :return: Updated cart.
     """
-    cart = update_cart_with_product(cart_id, cart_in.product)
+    cart = crud.update_cart_with_product(cart_id, cart_in.product)
 
     if not cart:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
@@ -90,7 +84,7 @@ async def delete_cart(cart_id: str) -> Any:
     :raises HTTPException: Cart not found.
     :return: Empty payload.
     """
-    cart = remove_cart(cart_id)
+    cart = crud.remove_cart(cart_id)
 
     if not cart:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
