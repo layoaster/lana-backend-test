@@ -12,7 +12,7 @@ from lana_store.core.config import settings
 router = APIRouter()
 
 
-@router.post("/", response_model=schemas.CartCreateOutput, status_code=201)
+@router.post("/", response_model=schemas.CartCreateOutput, status_code=status.HTTP_201_CREATED)
 async def create_cart() -> Any:
     """
     Creates a cart.
@@ -41,8 +41,8 @@ async def get_cart(cart_id: str) -> Any:
     if not cart:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cart not found")
 
-    # Adds decimals to format money output
-    total_price = str(cart.total / (10 ** settings.MONEY_DECIMALS))
+    # Adds 2 decimals to format money output
+    total_price = f"{cart.total / (10 ** settings.MONEY_DECIMALS):.2f}"
 
     return schemas.CartOutput(**cart.dict(), total=total_price)
 
