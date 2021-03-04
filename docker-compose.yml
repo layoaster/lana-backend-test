@@ -25,6 +25,22 @@ services:
     networks:
       - default-net
 
+    #---- Web service ----#
+  lana-client:
+    build:
+      dockerfile: Dockerfile.client
+      context: .
+      target: lana-client-dev
+    image: lana-client-dev
+    environment:
+      - TERM=xterm-256color
+      - LC_ALL=en_US.UTF-8
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US.UTF-8
+      - CLIENT_STORE_API_BASE_URL=http://lana-store:8000/api/v1
+    networks:
+      - default-net
+
   #---- Testing ----#
   test:
     image: lana-store-dev:latest
@@ -76,7 +92,7 @@ services:
         source: ./
         target: /app
         read_only: true
-    entrypoint: mypy --show-error-codes --pretty lana_store
+    entrypoint: mypy --show-error-codes --pretty lana_store lana_client
 
 networks:
   default-net:
