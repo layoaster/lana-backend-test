@@ -16,7 +16,7 @@ I've followed.
 
 
 ## Usage
-For simplicity Docker / [Docker Compose][docker-compose] is required to get
+For simplicity Docker/[Docker Compose][docker-compose] is required to get
 everything running.
 
 **Important:** Before anything make sure you create an empty file named `.env`
@@ -41,7 +41,14 @@ $ docker-compose logs lana-store
 ```
 
 ### Client
-TBD
+
+The client can also be executed with *docker-compose* as easily with:
+
+```shell
+$ docker-compose run [-rm] lana-client
+```
+
+The UI is a terminal-like GUI with a really self-explanatory controls.
 
 ## Development
 The project supports development via **Docker** containers which also facilitates
@@ -122,6 +129,7 @@ thread-safe operation) there should be no data inconsistencies.
 
 ## TODOs
 * Add a persistence layer to be able to scale.
+* Client unit tests.
 
 
 
