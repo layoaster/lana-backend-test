@@ -5,7 +5,7 @@ import uuid
 from collections import Counter
 from typing import List
 
-from pydantic import BaseModel, UUID4
+from pydantic import BaseModel, Field, UUID4
 
 from lana_store.core.config import settings
 from lana_store.models.product import ProductCodes
@@ -17,7 +17,7 @@ class Cart(BaseModel):
     """
 
     #: UUIDv4 that uniquely identifies the Cart.
-    id: UUID4 = uuid.uuid4()
+    id: UUID4 = Field(default_factory=uuid.uuid4)
     #: List of checked-out products.
     products: List[ProductCodes] = []
 

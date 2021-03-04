@@ -16,4 +16,4 @@ exclude =
     test-results
 
 import-order-style = edited
-application-import-names = lana_store
+application-import-names = lana_store lana_client

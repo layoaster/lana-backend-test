@@ -1,0 +1,20 @@
+ARG PYTHON_VERSION=3.9.2-slim-buster
+
+# Python base image
+FROM python:${PYTHON_VERSION} AS lana-client-dev
+
+ENV PYTHONPATH="/app"
+
+WORKDIR /app
+
+COPY requirements_client.txt ./
+COPY lana_client /app/lana_client/
+
+RUN set -x \
+    # Generating wheels
+    && pip --no-cache-dir install --upgrade pip \
+    && pip install --no-cache-dir -r requirements_client.txt \
+    # Cleaning up image
+    && rm -rf /root/.cache
+
+ENTRYPOINT [ "python", "./lana_client/cart_manager.py" ]
